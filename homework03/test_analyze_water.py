@@ -21,12 +21,12 @@ def test_caculate_turbidity():
 
 
 
-def test_calculate_min_time():
+def test_calculate_minimum_time():
     #testing with a sample from data
     Ts = 1.0
     T = 1.5
     d = 0.02
-    result = calculate_min_time(Ts, T, d)
+    result = calculate_minimum_time(Ts, T, d)
     expected = 6.67
     assert result == expected, f"Expected {expected} but got {result}"
 
@@ -34,7 +34,7 @@ def test_calculate_min_time():
     Ts = 1.0
     T = 2.0
     d = 0.01
-    result = calculate_min_time(Ts, T, d)
+    result = calculate_minimum_time(Ts, T, d)
     expected = 11.77
     assert result == expected, f"Expected {expected} but got {result}"
 

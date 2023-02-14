@@ -28,6 +28,10 @@ points are some of the requirements for this part that will be useful when analy
 	- This script will use the 'requests' library that will insure the transportation of the json data to this script.
 	- The script contains a few constants that are used throughout the program. The decay factor is 2% (or 0.02). 
 	The turbidity threshold for safe water id 1.0 NTU.
+
+Please note that for the main() function in this script, it is required that the user input thier own URL to replace where it 
+states '*enter url here*' This url should be found where you stored the json data set. This will ensure that the program will
+sucessfully import the relavent data and run smoothly. 
 		
 
 ## Part 3:

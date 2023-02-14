@@ -49,7 +49,7 @@ def calculate_minimum_time(current_turbidity:float, safe_thresh:float, decay_fac
 
 
 def main():
-    response = requests.get("https://turbidity_data.json") #import water turbidity data set
+    response = requests.get("https://**insert url here**/turbidity_data.json") #import water turbidity data set
     data = json.loads(response.text)['turbidity_data']
 
     # constants given

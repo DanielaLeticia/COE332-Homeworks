@@ -28,10 +28,9 @@ how they are used. It will help in the overall understanding of the project.
 __Part02:__
 
 The second part of this homwork/project is the script itself. As states earlier, this program impliments Flask and its 
-features in order to print data specific to a user's input. In this case, the user will type 'https:...." followed by a dash '/'
-and/or some key and the program will proceed to print the specific data that the user requested. For this project, the user can 
-type/select four keys and print different info each time. These also correspond with each function that is used in this script. The 
-options for user input are as follows:
+features in order to print data specific to a user's input. In this case, the user will type 'curl localhost: 500' followed 
+by a dash '/' and/or some key and the program will proceed to print the specific data that the user requested. For this project, the user can type/select four keys and print different info each time. These also correspond with each function that is used in 
+this script. The options for user input are as follows:
 
 		1. '/' : simply typing a back slash will print the entire data set
 		2. '/epochs' : this will print all of the epochs in the data set

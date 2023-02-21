@@ -1,5 +1,5 @@
 
-#__Homework04: Tracking the ISS__
+__Homework04: Tracking the ISS__
 
 The main objectove of this homework is to import and read an xml data set containing data reguarding the location of the 
 International Space Station and then apply our knowledge of Flask and its features to print specific data based on user input. 
@@ -8,17 +8,16 @@ best to write specific and easy-to-follow instructions for executing this projec
 
 ---
 
-##__Part01:__
+__Part01:__
 
-	Part one of this project is getting the data and familiarizing yourself with the data given. The data can be found using
+Part one of this project is getting the data and familiarizing yourself with the data given. The data can be found using
 the following link: [ISS Trajectory Data](https://spotthestation.nasa.gov/trajectory_data.cfm) . This link will take you to a 
 nasa.gov webiste where you will have an option to view the data in two formats; .XML and .TXT. For this project, I will utilize
-the .XML format as it is easier for importing and manipulating data as opposed to a text file. The following link is the data set 
-used in this project: [ISS Data XML](file:///C:/Users/techd/Downloads/ISS.OEM_J2K_EPH%20(2).xml) . Please note that this is the 
-link for the personal computer, you will need to copy and paste your own link into the script. This is explained in more depth
-in the second part of this file.
-Please download this data set into the same folder as this project so the script will run smoothly.
-	One of the more important things about this data set is that it is updated live. The means that the data may be different
+the .XML format as it is easier for importing and manipulating data as opposed to a text file. Please note that you will need to
+copy and paste your own link into the script. This is explained in more depth in the second part of this file. Please download 
+this data set into the same folder as this project so the script will run smoothly.
+
+One of the more important things about this data set is that it is updated live. The means that the data may be different
 deppending on when you download this data from the nasa website. The state vectors conatined in the data set (which are used to 
 calculate the speed and position of the ISS) are in a range of about 15 days. This is why the range may be different deppending on
 when the data was downloaded. These state vectors contain Cartesiean vectors for positon (x,y,z), velocity (x_dot, y_dot, z_dot),
@@ -26,7 +25,8 @@ and a time stamp (epoch). All of the these variables are used in the script so i
 how they are used. It will help in the overall understanding of the project.
 
 
-##__Part02:__
+__Part02:__
+
 The second part of this homwork/project is the script itself. As states earlier, this program impliments Flask and its 
 features in order to print data specific to a user's input. In this case, the user will type 'https:...." followed by a dash '/'
 and/or some key and the program will proceed to print the specific data that the user requested. For this project, the user can 

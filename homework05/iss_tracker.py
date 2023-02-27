@@ -9,6 +9,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
+# this is where my issue is: how to access/download data here!!!!!
 def get_data() -> dict:
     '''
     This function will return the entire data set
@@ -19,7 +20,7 @@ def get_data() -> dict:
     Returns:
         data : This is the variable for the entire data set that will be returned when this function is executed.
     '''
-    data_url = "https://..." # enter url link here
+    data_url = "https://..." # enter url link here !!!!!!!!!
     response = requests.get(data_url)
     information = xmltodict.parse(response.text)
     data = information['ndm']['oem']['body']['segment']['data']['stateVector']

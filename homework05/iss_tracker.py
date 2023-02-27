@@ -1,7 +1,7 @@
 # this is the iss tacker script for homework05
 # Daniela Sanchez, dls4848
 
-import requets
+import requests
 import math
 import xmltodict
 
@@ -20,7 +20,7 @@ def get_data() -> dict:
     Returns:
         data : This is the variable for the entire data set that will be returned when this function is executed.
     '''
-    data_url = "https://..." # enter url link here !!!!!!!!!
+    data_url = "file:///C:/Users/techd/Downloads/ISS.OEM_J2K_EPH%20(4).xml"
     response = requests.get(data_url)
     information = xmltodict.parse(response.text)
     data = information['ndm']['oem']['body']['segment']['data']['stateVector']
@@ -120,7 +120,7 @@ def get_speed_for_specif_epoch(epoch):
     calculate = (x_dot*x_dot)+(y_dot*y_dot)+(z_dot*z_dot)
     speed = math.sqrt(calculate)
     units = data[epoch]['X_DOT']['@units']
-    return (f 'speed: {str(speed)} {units}')
+    return ( 'speed: {str(speed)} {units}')
 
 
 @app.route('/help', methods=['GET'])
@@ -134,17 +134,17 @@ def help_message():
     Returns:
         This function will return a help menu in string form.
     '''
-    help_string = " The following are all options and descriptions:
-                        '/' : returns entire data set
-                        '/epochs' : returns list of ALL epochs in data set
-                        '/epochs?limit=int&offset=int' : returns list of epochs with user specified parameters
-                        '/epochs/<epoch>' : returns user specified epoch
-                        '/epcohs/<epochs>/speed' : returns speed of user specified epoch
-                        '/help' : returns help menu
-                        '/delete-data' : will delete entire data set
-                        '/post-data : will reload the dictionary object with data from the web"
+    help_string = " Help Menu: Below are all of the possible commands and thier descriptions:"
+    string1 = ("'/' : returns entire data set;\n")
+    string2 = ("'/epochs' : returns list of ALL epochs in data set;\n")
+    string3 = ("'/epochs?limit=int&offset=int' : returns list of epochs with user specified parameters;\n")
+    string4 = ("'/epochs/<epoch>' : returns user specified epoch;\n")
+    string5 = ("'/epcohs/<epochs>/speed' : returns speed of user specified epoch;\n")
+    string7 = ("'/help' : returns help menu;\n")
+    string8 = ("'/delete-data' : will delete entire data set;\n") 
+    string9 = ("'/post-data : will reload the dictionary object with data from the web;\n")
 
-    return help_string
+    return help_string + string1 + string2 + string3 + string4 + string5 + string6 + string7 + string8 + string9
 
 @app.route('/delete-data', methods=['DELETE'])
 def delete_all_data(data):
@@ -153,17 +153,26 @@ def delete_all_data(data):
             data.delete()
             delete_message = 'ALL data has been succesfully deleted'
         else:
-            print 'Invalid Input: data could not be deleted.'
+            print ('Invalid Input: data could not be deleted.')
             delete_message = 'Data could NOT be deleted!'
     except HTTPException as error:
         return error
     return delete_message
 
 @app.route('/post-data', methods=['POST'])
-def post_data(data):
+def post_data():
+    '''
+    This function will reload the dictionary with data from the web
 
-    return 
+    Args:
+        This function takes not arguments.
 
+    Returns:
+        data (dict): this is the entire updated data set
+    '''
+    global data
+    data = information['ndm']['oem']['body']['segment']['data']['stateVector']
+    return data
 
 
 if __name__ == '__main__':

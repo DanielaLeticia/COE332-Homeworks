@@ -20,7 +20,7 @@ def get_data() -> dict:
     Returns:
         data : This is the variable for the entire data set that will be returned when this function is executed.
     '''
-    data_url = "file:///C:/Users/techd/Downloads/ISS.OEM_J2K_EPH%20(4).xml"
+    data_url = "https://nasa-public-data.s3.amazonaws.com/iss-coords/current/ISS_OEM/ISS.OEM_J2K_EPH.xml"
     response = requests.get(data_url)
     information = xmltodict.parse(response.text)
     data = information['ndm']['oem']['body']['segment']['data']['stateVector']

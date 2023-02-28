@@ -28,4 +28,17 @@ order to run the iss tracker program/script.
 
 ## Part03: Running the Data & Dockerfile
 
+There a few steps to take if you want to able to run this program properly. Below are a few steps, commands and examples of 
+what to do in order to run this program smoothly. 
 
+	1. have the Dockerfile and the iss_tracker.py file in the same folder and have two tabs open on commandline or
+		whatever program you perfer
+	2. On one of the tabs, begin to run the flask app for this script. The command is: `flask --app iss_tracker.py --debug run`
+	3. On the other tab, you can begin to run the program by using the curl command: `curl localhost:5000`
+	4. You can then specify what type of information you want to print from the data. There are quite a few different
+		ones you can use. For a detailed list type: `curl localhost:5000/help` . This will get you to a help menu where
+		you can see all of the different routes imbedded into this program. 
+
+note: As you are executing the curl commands for the data script, the second tab opened to the flask app will give you some
+behind the scenes of the program. You are able to see error codes and a description if something went wrong with the program,
+or it will give you a 200 code, which means the program was successfull! 

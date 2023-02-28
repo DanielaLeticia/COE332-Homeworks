@@ -45,7 +45,8 @@ def get_entire_data_set():
 @app.route('/epochs', methods=['GET'])
 def get_all_epochs():
     '''
-    This function will print a list of all of the epochs in the data set when the user types '/epochs'
+    This function will print a list of all of the epochs in the data set when the user types '/epochs' and will return a modified
+    version of the list if the user uses query parameters.
 
     Args:
         This function does not take any arguments.
@@ -53,20 +54,37 @@ def get_all_epochs():
     Returns:
         list_of_epochs (list): This is the list of all of the epochs in the data set
     '''
-    data = get_data()
+    maximum = len(data) #getting the length of the data
     list_of_epochs = []
-    list_length = len(data)
-    for i in range(list_length):
-        list_of_epochs.append(data[i]['EPOCH'])
+    lim = request.args.get('limit', maximum)
+    if lim:
+        try:
+            lim = int(lim)
+        except ValueError:
+            return "Invalid limit paramter", 400
+
+    offset = request.args.get('offset', 0)
+    if offset:
+        try:
+            offset = int(offset)
+        except ValueError:
+            return "invalid offset parameter", 400
+
+    count = lim
+    for i in range(maximum):
+        if len(list_of_epochs) == lim:
+            break
+        if i >= offset:
+            list_of_epochs.append(data[i]['EPOCH'])
     return list_of_epochs
 
 
-@app.route('/epochs?limit=int&offset=int', methods=['GET'])
-def get_limit_epoch():
+#@app.route('/epochs?limit=int&offset=int', methods=['GET'])
+#def get_limit_epoch():
 
 
 
-    return 
+#    return 
 
 
 

@@ -5,26 +5,19 @@ import requests
 import math
 import xmltodict
 
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
-# this is where my issue is: how to access/download data here!!!!!
-def get_data() -> dict:
-    '''
-    This function will return the entire data set
+data = {}
 
-    Args:
-        This fuction does not take any arguments.
 
-    Returns:
-        data : This is the variable for the entire data set that will be returned when this function is executed.
-    '''
+def get_data():
+    global data
     data_url = "https://nasa-public-data.s3.amazonaws.com/iss-coords/current/ISS_OEM/ISS.OEM_J2K_EPH.xml"
     response = requests.get(data_url)
     information = xmltodict.parse(response.text)
     data = information['ndm']['oem']['body']['segment']['data']['stateVector']
-    return data
 
 @app.route('/', methods=['GET'])
 def get_entire_data_set():
@@ -38,7 +31,6 @@ def get_entire_data_set():
     Returns:
         data (dict): This is the entire data set
     '''
-    data = get_data()
     return data
 
 
@@ -88,7 +80,7 @@ def get_all_epochs():
 
 
 
-@app.route('/epochs/<int:epoch>', methods=['GET']) # the 'epoch' is typed as an int as the arguments only takes strings
+@app.route('/epochs/<epoch>', methods=['GET']) # the 'epoch' is typed as an int as the arguments only takes strings
 def get_specif_epoch(epoch):
     '''
     This function will print a specified epoch value. Specfied by the user
@@ -99,14 +91,13 @@ def get_specif_epoch(epoch):
     Returns:
         epoch[data]: This is the specific epoch value in the data set.
     '''
-    data = get_data()
-    if epoch>=len(data):
-        return "Error: epoch value not in data set", 400 # error message if input is not in data set and error code
-    return epoch[data]
+    for stateVector in data:
+        if epoch == stateVector["EPOCH"]:
+            return stateVector
 
 
 
-@app.route('/epochs/<int:epoch>/speed', methods=['GET'])
+@app.route('/epochs/<epoch>/speed', methods=['GET'])
 def get_speed_for_specif_epoch(epoch):
     '''
     This function will print the speed for the specific epoch specified. The units for the speed are calculated and printed as
@@ -118,27 +109,29 @@ def get_speed_for_specif_epoch(epoch):
     Returns:
         speed: This is the speed for the specific enoch.
     '''
-    data = get_data()
-    if epoch>=len(data):
-        return "Error: epoch value not in data set", 400
+    for stateVector in data:
+        if epoch == stateVector["EPOCH"]:
+            
+            
+        
 
-    # initializing _dot values
-    x_dot = data[epoch]['X_DOT']['#text']
-    y_dot = data[epoch]['Y_DOT']['#text']
-    z_dot = data[epoch]['Z_DOT']['#text']
+            # initializing _dot values
+            x_dot = stateVector['X_DOT']['#text']
+            y_dot = stateVector['Y_DOT']['#text']
+            z_dot = stateVector['Z_DOT']['#text']
 
-    # type casting the values into floats
-    x_dot = float(x_dot)
-    y_dot = float(y_dot)
-    z_dot = float(z_dot)
+            # type casting the values into floats
+            x_dot = float(x_dot)
+            y_dot = float(y_dot)
+            z_dot = float(z_dot)
 
 
 
- # using formula provided to calculate speed
-    calculate = (x_dot*x_dot)+(y_dot*y_dot)+(z_dot*z_dot)
-    speed = math.sqrt(calculate)
-    units = data[epoch]['X_DOT']['@units']
-    return ( 'speed: {str(speed)} {units}')
+            # using formula provided to calculate speed
+            calculate = (x_dot*x_dot)+(y_dot*y_dot)+(z_dot*z_dot)
+            speed = math.sqrt(calculate)
+            units = stateVector['X_DOT']['@units']
+            return (f'speed: {str(speed)} {units}')
 
 
 @app.route('/help', methods=['GET'])
@@ -162,23 +155,26 @@ def help_message():
     string8 = ("'/delete-data' : will delete entire data set;\n") 
     string9 = ("'/post-data : will reload the dictionary object with data from the web;\n")
 
-    return help_string + string1 + string2 + string3 + string4 + string5 + string6 + string7 + string8 + string9
+    return help_string + string1 + string2 + string3 + string4 + string5 + string7 + string8 + string9
 
 @app.route('/delete-data', methods=['DELETE'])
-def delete_all_data(data):
-    try: 
-        if data.first() is not None:
-            data.delete()
-            delete_message = 'ALL data has been succesfully deleted'
-        else:
-            print ('Invalid Input: data could not be deleted.')
-            delete_message = 'Data could NOT be deleted!'
-    except HTTPException as error:
-        return error
-    return delete_message
+def delete_all_data():
+    global data
+    data.clear()
+    #try: 
+     #   if data.first() is not None:
+      #      data.delete()
+       #     delete_message = 'ALL data has been succesfully deleted'
+        #else:
+         #   print ('Invalid Input: data could not be deleted.')
+          #  delete_message = 'Data could NOT be deleted!'
+    #except HTTPException as error:
+     #   return error
+    #return delete_message
+    return 'deleted data\n'
 
 @app.route('/post-data', methods=['POST'])
-def post_data():
+def post_data() -> str:
     '''
     This function will reload the dictionary with data from the web
 
@@ -189,11 +185,12 @@ def post_data():
         data (dict): this is the entire updated data set
     '''
     global data
-    data = information['ndm']['oem']['body']['segment']['data']['stateVector']
-    return data
+    get_data()
+    return 'reloaded data\n'
 
 
 if __name__ == '__main__':
+    get_data()
     app.run(debug=True, host='0.0.0.0')
 
 

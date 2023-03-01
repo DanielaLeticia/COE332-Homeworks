@@ -9,24 +9,25 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+
 data = {}
 
 
 def get_data():
+    '''
+    This function will get the data set and make it a global variable
+    '''
     global data
     data_url = "https://nasa-public-data.s3.amazonaws.com/iss-coords/current/ISS_OEM/ISS.OEM_J2K_EPH.xml"
     response = requests.get(data_url)
     information = xmltodict.parse(response.text)
     data = information['ndm']['oem']['body']['segment']['data']['stateVector']
 
+
 @app.route('/', methods=['GET'])
 def get_entire_data_set():
     '''
     This function will print the entire data set when the user simply uses a back slash '/'
-
-
- Args:
-        This function does not take any arguments.
 
     Returns:
         data (dict): This is the entire data set
@@ -71,19 +72,11 @@ def get_all_epochs():
     return list_of_epochs
 
 
-#@app.route('/epochs?limit=int&offset=int', methods=['GET'])
-#def get_limit_epoch():
 
-
-
-#    return 
-
-
-
-@app.route('/epochs/<epoch>', methods=['GET']) # the 'epoch' is typed as an int as the arguments only takes strings
+@app.route('/epochs/<epoch>', methods=['GET']) 
 def get_specif_epoch(epoch):
     '''
-    This function will print a specified epoch value. Specfied by the user
+    This function will print a the info for a user specified epoch.
 
     Args:
         epoch (int): This is an input value that is entered by the user. Will go after a back slash
@@ -134,6 +127,7 @@ def get_speed_for_specif_epoch(epoch):
             return (f'speed: {str(speed)} {units}')
 
 
+
 @app.route('/help', methods=['GET'])
 def help_message():
     '''
@@ -145,33 +139,30 @@ def help_message():
     Returns:
         This function will return a help menu in string form.
     '''
-    help_string = " Help Menu: Below are all of the possible commands and thier descriptions:"
-    string1 = ("'/' : returns entire data set;\n")
-    string2 = ("'/epochs' : returns list of ALL epochs in data set;\n")
-    string3 = ("'/epochs?limit=int&offset=int' : returns list of epochs with user specified parameters;\n")
-    string4 = ("'/epochs/<epoch>' : returns user specified epoch;\n")
-    string5 = ("'/epcohs/<epochs>/speed' : returns speed of user specified epoch;\n")
-    string7 = ("'/help' : returns help menu;\n")
-    string8 = ("'/delete-data' : will delete entire data set;\n") 
-    string9 = ("'/post-data : will reload the dictionary object with data from the web;\n")
+    help_string = " Help Menu: Below are all of the possible commands and thier descriptions:\n"
+    string1 = ("'/' : returns entire data set\n")
+    string2 = ("'/epochs' : returns list of ALL epochs in data set\n")
+    string3 = ("'/epochs?limit=int&offset=int' : returns list of epochs with user specified parameters\n")
+    string4 = ("'/epochs/<epoch>' : returns user specified epoch\n")
+    string5 = ("'/epcohs/<epochs>/speed' : returns speed of user specified epoch\n")
+    string7 = ("'/help' : returns help menu\n")
+    string8 = ("'/delete-data' : will delete entire data set\n") 
+    string9 = ("'/post-data : will reload the dictionary object with data from the web\n")
 
     return help_string + string1 + string2 + string3 + string4 + string5 + string7 + string8 + string9
 
+
+
 @app.route('/delete-data', methods=['DELETE'])
 def delete_all_data():
+    '''
+    This function uses the delete method to delete all of the data. It will return a delete message.
+    '''
     global data
     data.clear()
-    #try: 
-     #   if data.first() is not None:
-      #      data.delete()
-       #     delete_message = 'ALL data has been succesfully deleted'
-        #else:
-         #   print ('Invalid Input: data could not be deleted.')
-          #  delete_message = 'Data could NOT be deleted!'
-    #except HTTPException as error:
-     #   return error
-    #return delete_message
-    return 'deleted data\n'
+    return 'The data has been successfully deleted!!\n'
+
+
 
 @app.route('/post-data', methods=['POST'])
 def post_data() -> str:
@@ -186,7 +177,8 @@ def post_data() -> str:
     '''
     global data
     get_data()
-    return 'reloaded data\n'
+    return 'The data has been successfully reloaded!!\n'
+
 
 
 if __name__ == '__main__':

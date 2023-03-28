@@ -43,5 +43,8 @@ First and formost, it is important that the user has all of the required files i
 their choosing. Since we implimented Docker into this program, running it is fairly simple. To run the docker-compose file and the 
 container, type and execute the following command: `docker-compose up -d`. This will create a redis-flask app. You can then use
 the command `docker ps -a` to get a list of all of the containers running. Here you should find the container that we just 
-launched. 
+launched. Running the commands is similar to what we have done so far with curl. The command is as follows: `curl localhost:5000`
+This is the basic command. You can add a route that was mentioned above to interact with the data. An example of this is:
+`curl localhost:5000/genes`. This command will return a list of all the genes in the data set. You can repeat this command with the 
+routes in the table.  
 

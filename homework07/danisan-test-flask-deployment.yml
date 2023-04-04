@@ -21,7 +21,7 @@ spec:
           image: danielasanchez/gene_api:1.0
           env:
           - name: REDIS_IP
-            value: "app.py" #redis service ip address
+            value: "10.233.41.192" #redis service ip address
           ports:
           - name: http
             containerPort: 5000

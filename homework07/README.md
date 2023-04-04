@@ -20,29 +20,30 @@ There are a total of five .yml files that are needed to deploy to Kubernetes. Si
 program, we will have both a service and deployment file for each and well as an additional redis pvc file. Below are brief
 descriptions of each of the .yml files
 
-	Redis:
-		`danisan-test-redis-pvc.yml` : This is a Persistant Volume Claim (PVC) file that stores our program/image
-			independantly from any pods or containers. This insures that there is always be persistent storage for
-			the user to claim/access.
-		`danisan-test-redis-deployment.yml` : This is a deployment file that will 
-		`danisan-test-redis-service.yml` : This is a service file that will make sure that the IP address that 'talks' to
-			redis stays the same, even when there may be multiple due to there being multiple redis pods. 
+### Redis:
+	`danisan-test-redis-pvc.yml` : This is a Persistant Volume Claim (PVC) file that stores our program/image
+		independantly from any pods or containers. This insures that there is always be persistent storage for
+		the user to claim/access.
+	`danisan-test-redis-deployment.yml` : This is a deployment file that will 
+	`danisan-test-redis-service.yml` : This is a service file that will make sure that the IP address that 'talks' to
+		redis stays the same, even when there may be multiple due to there being multiple redis pods. 
 
-	Flask:
-		`danisan-test-flask-deployment.yml` : This is a deployment file that will
-		`danisan-test-flask-service.yml` : This is a service file that is quite similar to the redis service file. It will
-			create a persistent IP that will be used to talk to the flask API. 
+### Flask:
+	`danisan-test-flask-deployment.yml` : This is a deployment file that will
+	`danisan-test-flask-service.yml` : This is a service file that is quite similar to the redis service file. It will
+		create a persistent IP that will be used to talk to the flask API. 
 
 ## Deploying to Kubernetes
 Please note that it is important that you have your files together in a single folder. This will make the process a lot smoother to
 have everything in one place. It should also be in a terminal where you have access to a kubernetes cluster and where you are able
 to perform the `kubectl` commands. Below are the steps needed to take in order to deploy the API.
 
-	1. type the following command: `kubectl apply -f <file_name.yml>` . This command will run the containers/deployments/ser-
-		vices needed. Enter the .yml file you wish to run in the carrot brackets. Please note you must run these files
-		in order since a file needs the previous to run. The order of the files is the same order they are in above in the
-		YAML Files section. 
-	2. Once you have applied all of the files, you should be able to see if these files are running successfully by using the
+1. type the following command: `kubectl apply -f <file_name.yml>` . This command will run the containers/deployments/ser-
+	vices needed. Enter the .yml file you wish to run in the carrot brackets. Please note you must run these files
+	in order since a file needs the previous to run. The order of the files is the same order they are in above in the
+	YAML Files section.
+ 
+2. Once you have applied all of the files, you should be able to see if these files are running successfully by using the
 		command: `kubectl get <service/deployment/pvc>` (only one should be selected at a time). Running this command, 
 		you should be able to see the that it is "RUNNING" and how much time it has been running. In the services section
 		there should also be an IP address that will become important later.

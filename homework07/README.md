@@ -44,18 +44,21 @@ to perform the `kubectl` commands. Below are the steps needed to take in order t
 	YAML Files section.
  
 2. Once you have applied all of the files, you should be able to see if these files are running successfully by using the
-		command: `kubectl get <service/deployment/pvc>` (only one should be selected at a time). Running this command, 
-		you should be able to see the that it is "RUNNING" and how much time it has been running. In the services section
-		there should also be an IP address that will become important later.
-	3. Running these programs, the gene_api image should already been pulled from DockerHub and it should be ready for
-		users to interact with.
-	4. type the following command: `kube get pods`. This should yield a list of available pods. Right now, you should have two
-		available pods named "danisan-test-development" and "danisan-test-label". We will exec into the test-development
-		pod and this should allow us to use curl commands on the API. Use the following command to exec into the 
-		danisan-test-development pod: `kubectl exec -it <pod_name> --/bin/bash`. It is easier to copy and paste the exact
-		pod name because there may be a unique number attached to it. 
-	5. YOU'RE IN!!! Now, you are in the kubernetes pod that will allow you to interact with the gene API. You may now use
-		the various curl commands that are outlined in the homework06 README to interact with the API. 
+	command: `kubectl get <service/deployment/pvc>` (only one should be selected at a time). Running this command, 
+	you should be able to see the that it is "RUNNING" and how much time it has been running. In the services section
+	there should also be an IP address that will become important later.
+
+3. Running these programs, the gene_api image should already been pulled from DockerHub and it should be ready for
+	users to interact with.
+
+4. type the following command: `kube get pods`. This should yield a list of available pods. Right now, you should have two
+	available pods named "danisan-test-development" and "danisan-test-label". We will exec into the test-development
+	pod and this should allow us to use curl commands on the API. Use the following command to exec into the 
+	danisan-test-development pod: `kubectl exec -it <pod_name> --/bin/bash`. It is easier to copy and paste the exact
+	pod name because there may be a unique number attached to it.
+ 
+5. YOU'RE IN!!! Now, you are in the kubernetes pod that will allow you to interact with the gene API. You may now use
+	the various curl commands that are outlined in the homework06 README to interact with the API. 
 
 
 

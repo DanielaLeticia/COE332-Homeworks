@@ -35,7 +35,7 @@ def handle_data():
         response = requests.get(url='https://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/json/hgnc_complete_set.json') 
         for item in response.json()['response']['docs']:
             key = f'{item["hgnc_id"]}'
-            rd.hset(item.get('hgnc_id', json.dumps(item))
+            rd.hset(item.get('hgnc_id', json.dumps(item)))
         return 'data has been successfully reloaded'
 
     elif request.method == 'DELETE':
@@ -58,7 +58,7 @@ def get_genes():
     output = []
     for item in rd.keys():
         if item == 'hgnc_id':
-        output.append(item)
+            output.append(item)
 
     return output
 
@@ -79,7 +79,7 @@ def get_gene_info(gene_id_num):
     alldata = []
     gene_info = []
     for item in rd.keys():
-        alldata.append()json.loads(rd.get(item)))
+        alldata.append(json.loads(rd.get(item)))
     for point in alldata:
         if point == id_string:
             gene_info = json.dumps(point)

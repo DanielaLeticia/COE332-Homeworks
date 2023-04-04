@@ -1,0 +1,28 @@
+---
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: danisan-test-deployment
+   labels:
+     app: danisan-test-redis
+ spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: danisan-test-redis
+   template:
+     metadata:
+       labels:
+         app: danisan-test-redis
+     spec:
+       containers:
+         - name: danisan-containers
+           image: redis:6
+           command:
+           volumeMounts:
+           - name: danisan-test
+             mountPath: "/data"
+       volumes:
+       - name: danisan-test
+         persistentVolumeClaim:
+           claimName: danisan-test

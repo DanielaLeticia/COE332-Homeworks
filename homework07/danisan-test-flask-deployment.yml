@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: danisan-test-deployment
+  labels:
+    app: danisan-test-flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: danisan-test-flask
+  template:
+    metadata:
+      labels:
+        app: danisan-test-flask
+    spec:
+      containers:
+        - name: danisan-test-flask-container
+          imagePullPolicy: Always
+          image: danielasanchez/gene_api:1.0
+          env:
+          - name: REDIS_IP
+            value: "app.py" #redis service ip address
+          ports:
+          - name: http
+            containerPort: 5000

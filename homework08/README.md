@@ -1,4 +1,4 @@
-# Homework07: In The Kubernetes
+# Homework08: Holidapp
 
 This homework is an extension of the previous homework06. While we are still utilizing the same API, Dockerfile, and 
 docker-compose, we have added a few more YAML files that will deploy this program to Kubernetes. In the follwing README, you will

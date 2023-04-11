@@ -1,19 +1,22 @@
 # Homework08: Holidapp
 
-This homework is an extension of the previous homework06. While we are still utilizing the same API, Dockerfile, and 
-docker-compose, we have added a few more YAML files that will deploy this program to Kubernetes. In the follwing README, you will
-find a description of each of the .yml files as well as how to deploy the files to kubernetes and subsequently run the gene API.
+This homework is an extension of the previous homework06 and homework07. While we are still utilizing the same API, Dockerfile, and 
+docker-compose, and YAML files, the purpose of this homework is to build out what we already have. In the follwing README, you will
+find a description of each of the .yml files that have been modified. To find more descriptions of the YAML files, please see 
+the homework07 README: [homework07](https://github.com/DanielaLeticia/COE332-Homeworks/tree/main/homework07)
 Please note that in depth descriptions of the gene_api.py, Dockerfile, and docker-compose.yml will not be included in this 
 README but if you want to learn a bit more about them, you can find the descriptions in the README for homework06 or 
 follow the link: [homework06](https://github.com/DanielaLeticia/COE332-Homeworks/tree/main/homework06)
+This project will also include a description of the changes made to the gene_api.py file as I have added a feature that will 
+allow the user to use `matplotlib` to plot the gene data.
 
 ---
 
 ## Preface:
-This homework is an extension of homework06 meaning that our gene_api should already be built and pushed onto DockerHub.
-This homework picks up from there. 
-Instructions on how to do this are in the README in homework06. Please follow the link above to view more detailed instructions on
-how to create the gene_api image and push it to DockerHub.
+This homework is an extension of homework06 and homework07 meaning that our program should sucessfully be deployed to Kubernetes
+and be able to run before this should take place.This homework picks up from the previous. 
+Instructions on how to do this are in the README in homework06 and homework07. Please follow the link above to view more 
+detailed instructions on how to create the gene_api image and push it to DockerHub and deploy it to Kubernetes.
 
 ## YAML Files
 There are a total of five .yml files that are needed to deploy to Kubernetes. Since we are using both redis and Flask for this

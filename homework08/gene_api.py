@@ -2,6 +2,8 @@ from flask import Flask, request
 import redis
 import requests
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 app = Flask(__name__)
 
@@ -11,14 +13,14 @@ def get_redis_client():
     if not redis_ip:
         raise Exception()
     return redis.Redis(host=redis_ip, port=6379, db=0, decode_responses=True)
-rd = get_redis_client # would i also need this??
+rd = get_redis_client 
 
 def get_second_redis_client():
     redis_ip = os.environ.get('REDIS_IP')
     if not redis_ip:
         raise Exception()
-    return redis.Redis(host=redis_ip, port=6379, db=1, decode_responses=True)
-rd_second = get_second_redis_client # do i need this, what does this do?
+    return redis.Redis(host=redis_ip, port=6379, db=1) 
+rd_second = get_second_redis_client 
 
 
 @app.route('/data', methods=['GET', 'POST', 'DELETE'])
@@ -97,21 +99,24 @@ def get_gene_info(gene_id_num):
 def get_image():
     '''
     This function will create a plot for the given data, show the user the plot and also delete the plot
-    based on user method input.
+    based on user method input. The function will iterate throughout the data and plot how many genes were apporved
+    that year. In other words, genes approved is the y-axis and year is the x-axis.
 
     Returns:
         success or error messages and for the GET method, the user will get the plot image.
     '''
     if request.method == 'GET':
-        rd.get(image_key) # the argument needs the image key that will be stored in the POST method
+        rd_second.get(image_key) # the argument needs the image key that will be stored in the POST method
         return image
 
     elif request.method == 'POST':
-
+        for rd.keys("date_approved_reserved") in rd.keys():
+            if 
+        rd_second.set(image_key) # this stores the image and will be used in the GET method
         return 'image has been sucessfully loaded.'
 
     elif request.method == 'DELETE':
-        rd_second.delete() # should i use rd_second or just rd?
+        rd_second.delete() 
         return f'image has been successfully deleted.'
 
     else:

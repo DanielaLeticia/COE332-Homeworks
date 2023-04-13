@@ -106,13 +106,16 @@ def get_image():
         success or error messages and for the GET method, the user will get the plot image.
     '''
     if request.method == 'GET':
-        rd_second.get(image_key) # the argument needs the image key that will be stored in the POST method
+        rd_second.get("gene_plot.png") # the argument needs the image key that will be stored in the POST method
         return image
 
     elif request.method == 'POST':
         for rd.keys("date_approved_reserved") in rd.keys():
-            if 
-        rd_second.set(image_key) # this stores the image and will be used in the GET method
+            if
+
+        plt.plot(year, data_approved_number)
+        plt.savefig("gene_plot.png") # would i need both the plt.favefig and the rd.set
+        rd_second.set("gene_plot.png") # this stores the image and will be used in the GET method
         return 'image has been sucessfully loaded.'
 
     elif request.method == 'DELETE':

@@ -2,7 +2,7 @@
  apiVersion: apps/v1
  kind: Deployment
  metadata:
-   name: danisan-test-deployment
+   name: danisan-test-redis-deployment
    labels:
      app: danisan-test-redis
  spec:
@@ -25,4 +25,4 @@
        volumes:
        - name: danisan-test
          persistentVolumeClaim:
-           claimName: danisan-test
+           claimName: danisan-test-pvc

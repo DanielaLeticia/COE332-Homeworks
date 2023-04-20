@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: danisan-test-deployment
+  name: danisan-test-flask-deployment
   labels:
     app: danisan-test-flask
 spec:

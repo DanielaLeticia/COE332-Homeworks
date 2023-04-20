@@ -21,7 +21,7 @@ spec:
           image: danielasanchez/gene_api:1.0
           env:
           - name: REDIS_IP
-            value: "10.233.41.192" #redis service cluster ip address
+            value: "danisan-test-service" #redis service cluster ip address
           ports:
           - name: http
             containerPort: 5000

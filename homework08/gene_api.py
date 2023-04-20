@@ -106,20 +106,31 @@ def get_image():
         success or error messages and for the GET method, the user will get the plot image.
     '''
     if request.method == 'GET':
-        rd_second.get("gene_plot.png") # the argument needs the image key that will be stored in the POST method
+        rd_second.get('gene_plot.png') # the argument needs the image key that will be stored in the POST method
         return image
 
     elif request.method == 'POST':
-        for rd.keys("date_approved_reserved") in rd.keys():
-            if
+        list_of_years = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009]
+        list_of_frequency = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-        plt.plot(year, data_approved_number)
-        plt.savefig("gene_plot.png") # would i need both the plt.favefig and the rd.set
-        rd_second.set("gene_plot.png") # this stores the image and will be used in the GET method
+        for item in rd.keys():
+            dict_of_items = json.loads(rd.get(item))
+            date = dict_of_items.['date_approved_reserved']
+            year_date = date[0:4] # only taking the year from the full date
+
+            for i in len(list_of_years):
+                if list_of_years[i] == int(year_date)
+                    list_of_frequency[i] = list_of_frequency[i] + 1
+
+        plt.plot(list_of_years, list_of_frequency)
+        plt.savefig('gene_plot.png') # would i need both the plt.favefig and the rd.set
+
+        file_bytes = open('/gene_plot.png', 'rb').read()
+        rd_second.set('gene_plot.png', file_bytes) # this stores the image and will be used in the GET method
         return 'image has been sucessfully loaded.'
 
     elif request.method == 'DELETE':
-        rd_second.delete() 
+        rd_second.delete('gene_plot.png') 
         return f'image has been successfully deleted.'
 
     else:

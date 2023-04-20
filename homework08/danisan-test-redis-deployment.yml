@@ -25,4 +25,4 @@
        volumes:
        - name: danisan-test
          persistentVolumeClaim:
-           claimName: danisan-test
+           claimName: danisan-test-pvc
